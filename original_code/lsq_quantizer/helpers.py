@@ -4,8 +4,6 @@ import os
 from collections import OrderedDict
 
 
-
-
 def load_checkpoint(model, checkpoint):
     if isinstance(checkpoint, dict) and 'state_dict' in checkpoint:
         new_state_dict = OrderedDict()
@@ -18,7 +16,6 @@ def load_checkpoint(model, checkpoint):
         model.load_state_dict(new_state_dict, strict=False)
     else:
         model.load_state_dict(checkpoint)
-
 
 
 def resume_checkpoint(model, checkpoint_path, start_epoch=None):
@@ -77,6 +74,7 @@ def load_pretrained(model, default_cfg, num_classes=1000, in_chans=3, filter_fn=
         state_dict = filter_fn(state_dict)
 
     model.load_state_dict(state_dict, strict=strict)
+
 
 
 

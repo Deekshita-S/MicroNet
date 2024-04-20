@@ -1,7 +1,7 @@
 import argparse
 import os
 import torch
-from utils.lsq_network import resnet20
+from utils.effnet import efficientnet_b0
 from utils.data_loader import dataloader_imagenet
 from helpers import load_checkpoint
 from utils.utilities import get_constraint, eval_performance
@@ -28,7 +28,7 @@ def main():
     args = get_arguments()
     constr_activation = get_constraint(args.activation_bits, 'activation')
 
-    net = resnet20(quan_first=True,
+    net = efficientnet_b0(quan_first=True,
                   quan_last=True,
                   constr_activation=constr_activation,
                   preactivation=False,

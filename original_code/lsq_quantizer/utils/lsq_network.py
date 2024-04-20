@@ -257,7 +257,10 @@ class ResNet(nn.Module):
         return x
 
 
-
+def resnet18(quan_first=False, quan_last=False, constr_activation=None, preactivation=False):
+    block = PreActivationBlock if preactivation else BasicBlock
+    model = ResNet(block, [2, 2, 2, 2], quan_first=quan_first, quan_last=quan_last, constr_activation=constr_activation)
+    return model
 
 
 def resnet20(quan_first=False, quan_last=False, constr_activation=None, preactivation=False):
@@ -271,4 +274,7 @@ Setting quan_first to True allows quantization to be performed immediately on th
     return model
 
 
-
+def resnet50(quan_first=False, quan_last=False, constr_activation=None, preactivation=False):
+    block = Bottleneck
+    model = ResNet(block, [3, 4, 6, 3], quan_first=quan_first, quan_last=quan_last, constr_activation=constr_activation)
+    return model

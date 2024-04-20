@@ -12,7 +12,7 @@ from utils.add_lsqmodule import add_lsqmodule
 from utils.lsq_network import resnet20
 from utils.utilities import Trainer
 from utils.utilities import get_constraint
-from utils.resnet import ResNet
+
 from utils import iterative_compression_utils as ic_utils
 
 import pdb
