@@ -109,7 +109,7 @@ class LsqActivation(nn.Module):
 
     def extra_repr(self):
         return 'constraint=%s' % self.constraint
-
+    # @staticmethod
     def forward(self, x):
         aquantizer = LsqActivationFun(self.constraint, skip_bit=self.skip_bit)
         return aquantizer(x, self.scale)
