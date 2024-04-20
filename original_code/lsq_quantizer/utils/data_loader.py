@@ -20,7 +20,7 @@ def dataloader_cifar10(data_root, split='train', batch_size=128):
         ])
         train_flag = False
 
-    dataset = datasets.CIFAR10(data_root, train=train_flag, transform=data_transform)
+    dataset = datasets.CIFAR10(data_root, train=train_flag, transform=data_transform, download=True)
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4)
     return loader
 

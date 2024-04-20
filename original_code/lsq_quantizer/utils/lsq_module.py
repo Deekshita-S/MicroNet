@@ -11,7 +11,7 @@ class LsqWeightFun(autograd.Function):
         self.valmin = float(constraint.min())
         self.valmax = float(constraint.max())
         self.skip_bit = skip_bit
-
+    @staticmethod
     def forward(self, *args, **kwargs):
         x = args[0]
         scale = args[1]
@@ -27,7 +27,7 @@ class LsqWeightFun(autograd.Function):
         x_restore = torch.mul(x_round, scale)
         self.save_for_backward(x_clip)
         return x_restore
-
+    @staticmethod
     def backward(self, *grad_outputs):
         grad_top = grad_outputs[0]
         x_clip = self.saved_tensors[0]
@@ -66,7 +66,7 @@ class LsqActivationFun(autograd.Function):
         self.valmin = float(constraint.min())
         self.valmax = float(constraint.max())
         self.skip_bit = skip_bit
-
+    @staticmethod
     def forward(self, *args, **kwargs):
         x = args[0]
         scale = args[1]
@@ -82,7 +82,7 @@ class LsqActivationFun(autograd.Function):
         x_restore = torch.mul(x_round, scale)
         self.save_for_backward(x_clip)
         return x_restore
-
+    @staticmethod
     def backward(self, *grad_outputs):
         grad_top = grad_outputs[0]
         x_clip = self.saved_tensors[0]
