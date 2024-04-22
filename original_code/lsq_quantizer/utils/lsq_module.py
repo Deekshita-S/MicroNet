@@ -5,13 +5,13 @@ import torch.autograd as autograd
 
 import pdb
 
-class LsqWeightFun(autograd.Function):
+class LsqWeightFun(nn.Module):
     def __init__(self, constraint, skip_bit=None):
         super(LsqWeightFun, self).__init__()
         self.valmin = float(constraint.min())
         self.valmax = float(constraint.max())
         self.skip_bit = skip_bit
-    @staticmethod
+    #@staticmethod
     def forward(self, *args, **kwargs):
         x = args[0]
         scale = args[1]
@@ -25,9 +25,9 @@ class LsqWeightFun(autograd.Function):
             x_round = torch.mul(x_round, sign)
         
         x_restore = torch.mul(x_round, scale)
-        self.save_for_backward(x_clip)
+       # self.save_for_backward(x_clip)
         return x_restore
-    @staticmethod
+    #@staticmethod
     def backward(self, *grad_outputs):
         grad_top = grad_outputs[0]
         x_clip = self.saved_tensors[0]
@@ -60,13 +60,13 @@ class LsqWeight(nn.Module):
         return wquantizer(x, self.scale)
 
 
-class LsqActivationFun(autograd.Function):
+class LsqActivationFun(nn.Module):
     def __init__(self, constraint, skip_bit=None):
         super(LsqActivationFun, self).__init__()
         self.valmin = float(constraint.min())
         self.valmax = float(constraint.max())
         self.skip_bit = skip_bit
-    @staticmethod
+    # @staticmethod
     def forward(self, *args, **kwargs):
         x = args[0]
         scale = args[1]
@@ -80,9 +80,9 @@ class LsqActivationFun(autograd.Function):
             x_round = torch.mul(x_round, sign)
         
         x_restore = torch.mul(x_round, scale)
-        self.save_for_backward(x_clip)
+        # self.save_for_backward(x_clip)
         return x_restore
-    @staticmethod
+   #  @staticmethod
     def backward(self, *grad_outputs):
         grad_top = grad_outputs[0]
         x_clip = self.saved_tensors[0]
